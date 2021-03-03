@@ -13,6 +13,9 @@ heading = "ToDo Reminder"
 # db.authenticate(name="localhost",password='C2y6yDjf5' + r'/R' + '+ob0N8A7Cgv30VRDJIWEHLM+4QDU5DE2nQ9nDuVTqobD4b8mGGyPMbIZnqyMsEcaGQy67XIw' + r'/Jw==')
 
 ## Comment out when running locally
+print("MONGOURL:", os.getenv("MONGOURL"))
+print("MONGO_USERNAME:", os.getenv("MONGO_USERNAME"))
+print("MONGO_PASSWORD:", os.getenv("MONGO_PASSWORD"))
 client = MongoClient(os.getenv("MONGOURL"))
 db = client.test    #Select the database
 db.authenticate(name=os.getenv("MONGO_USERNAME"),password=os.getenv("MONGO_PASSWORD"))
