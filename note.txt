@@ -1,0 +1,56 @@
+Deploy to Azure
+
+Create account 
+https://cloud.mongodb.com/
+Create cluster
+Create user, admin role
+
+Login github.com, fork the repo
+Connect Azure web app to this repo 
+
+## Comment out when running locally
+print("MONGOURL:", os.getenv("MONGOURL"))
+print("MONGO_USERNAME:", os.getenv("MONGO_USERNAME"))
+print("MONGO_PASSWORD:", os.getenv("MONGO_PASSWORD"))
+client = MongoClient(os.getenv("MONGOURL"))
+db = client.test    #Select the database
+db.authenticate(name=os.getenv("MONGO_USERNAME"),password=os.getenv("MONGO_PASSWORD"))
+
+pymongo.errors.InvalidURI: Invalid URI scheme: mongodb+srv
+https://developer.mongodb.com/community/forums/t/invalid-uri-scheme-mongodb-srv/9623/2
+https://stackoverflow.com/a/60442688
+
+
+pymongo.errors.OperationFailure: Authentication failed., full error: {'ok': 0, 'errmsg': 'Authentication failed.', 'code': 8000, 'codeName': 'AtlasError'}
+
+Test connect to MongoDB server from local, before from Azure
+
+git clone https://github.com/ezcad-dev/CosmosDB-Flask-Mongo-Sample.git
+cd CosmosDB-Flask-Mongo-Sample
+python -m venv venv
+source venv/bin/activate
+pip install -r requirements.txt
+python 
+>>> from pymongo import MongoClient
+>>> import dns
+>>> client = MongoClient("mongodb+srv://joseph:zhu123@cluster0.fhs3h.mongodb.net/test?retryWrites=true&w=majority")
+>>> 
+>>> print(client)
+MongoClient(host=['cluster0-shard-00-00.fhs3h.mongodb.net:27017', 'cluster0-shard-00-01.fhs3h.mongodb.net:27017', 'cluster0-shard-00-02.fhs3h.mongodb.net:27017'], document_class=dict, tz_aware=False, connect=True, retrywrites=True, w='majority', authsource='admin', replicaset='atlas-8sz1qx-shard-0', ssl=True)
+>>> 
+>>> db = client.test
+>>> db.authenticate(name="joseph", password="zhu123")
+pymongo.errors.OperationFailure: Authentication failed., full error: {'ok': 0, 'errmsg': 'Authentication failed.', 'code': 8000, 'codeName': 'AtlasError'}
+
+https://pymongo.readthedocs.io/en/stable/examples/authentication.html
+
+>>> client = MongoClient("mongodb+srv://joseph:zhu123@cluster0.fhs3h.mongodb.net/test?retryWrites=true&w=majority", authSource="test")
+>>> db = client.test
+>>> db.authenticate(name="joseph", password="zhu123")
+True
+>>>
+
+https://mongodb-zhu.azurewebsites.net/
+azure Failed to load resource: the server responded with a status of 503 (Service Temporarily Unavailable)
+GET https://mongodb-zhu.azurewebsites.net/ 500 (INTERNAL SERVER ERROR)
+Check mongodb-zhu | Diagnose and solve problems > Application Logs
