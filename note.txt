@@ -49,6 +49,18 @@ https://pymongo.readthedocs.io/en/stable/examples/authentication.html
 >>> db.authenticate(name="joseph", password="zhu123")
 True
 >>>
+>>> todos = db["todo"]
+>>> todos.insert({ "name":"cook", "desc":"food", "date":"3/3/2021", "pr":50, "done":"no"})
+pymongo.errors.OperationFailure: Authentication failed., full error: {'ok': 0, 'errmsg': 'Authentication failed.', 'code': 8000, 'codeName': 'AtlasError'}
+>>>
+>>> client = MongoClient("mongodb+srv://ezcad:test@cluster0.fhs3h.mongodb.net/?retryWrites=true&w=majority")
+>>> db = client.test
+>>> todos = db["todo"]
+>>> todos.insert({ "name":"cook", "desc":"food", "date":"3/3/2021", "pr":50, "done":"no"})
+ObjectId('60409e428cd23ec65d440b06')
+>>>
+Try omit authSource and skip the authenticate
+
 
 https://mongodb-zhu.azurewebsites.net/
 azure Failed to load resource: the server responded with a status of 503 (Service Temporarily Unavailable)

@@ -13,17 +13,6 @@ heading = "ToDo Reminder"
 # db = client.test    #Select the database
 # db.authenticate(name="localhost",password='C2y6yDjf5' + r'/R' + '+ob0N8A7Cgv30VRDJIWEHLM+4QDU5DE2nQ9nDuVTqobD4b8mGGyPMbIZnqyMsEcaGQy67XIw' + r'/Jw==')
 
-"""
-Test connect to MongoDB cloud server from local, before from Azure
->>> client = MongoClient("mongodb+srv://username:password@cluster0.fhs3h.mongodb.net/test?retryWrites=true&w=majority", authSource="test")
->>> db = client.test
->>> db.authenticate(name="username", password="password")
-True
-
-In Azure Web App's Application settings, add
-MONGOURL="mongodb+srv://username:password@cluster0.fhs3h.mongodb.net/test?retryWrites=true&w=majority&authSource=test"
-"""
-
 print("MONGOURL:", os.getenv("MONGOURL"))
 print("MONGO_USERNAME:", os.getenv("MONGO_USERNAME"))
 print("MONGO_PASSWORD:", os.getenv("MONGO_PASSWORD"))
@@ -31,7 +20,7 @@ print("MONGO_PASSWORD:", os.getenv("MONGO_PASSWORD"))
 ## Comment out when running locally
 client = MongoClient(os.getenv("MONGOURL"))
 db = client.test    #Select the database
-db.authenticate(name=os.getenv("MONGO_USERNAME"),password=os.getenv("MONGO_PASSWORD"))
+# db.authenticate(name=os.getenv("MONGO_USERNAME"),password=os.getenv("MONGO_PASSWORD"))
 
 todos = db.todo #Select the collection
 
